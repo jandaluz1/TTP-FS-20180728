@@ -37,6 +37,10 @@ passport.deserializeUser(async (userId, done) => {
 
 app.use('/auth', require('./auth'));
 
+app.use('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public/index.html'));
+});
+
 mongoose.connect(
   'mongodb://localhost/stocks',
   { useNewUrlParser: true }
