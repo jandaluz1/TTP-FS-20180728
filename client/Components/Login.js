@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
+import { login } from '../store/user';
 
 class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { email: '', password: '' };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
   handleSubmit(event) {
     event.preventDefault();
-    axios.post('/auth/login', this.state);
+    this.props.login(this.state);
     this.setState({ email: '', password: '' });
   }
   handleChange(event) {
@@ -42,5 +44,12 @@ class Login extends Component {
     );
   }
 }
-
-export default Login;
+const mapDispatch = dispatch => ({
+  login: (email, password) => {
+    dispatch(login(email, password));
+  }
+});
+export default connect(
+  null,
+  mapDispatch
+)(Login);
