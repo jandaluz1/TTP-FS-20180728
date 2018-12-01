@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Login extends Component {
   constructor() {
@@ -9,7 +10,7 @@ class Login extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state);
+    axios.post('/auth/login', this.state);
     this.setState({ email: '', password: '' });
   }
   handleChange(event) {

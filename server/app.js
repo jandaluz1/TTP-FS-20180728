@@ -2,12 +2,38 @@ const express = require('express');
 const path = require('path');
 const volleyball = require('volleyball');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const session = require('express-session');
+
+const { User } = require('./db');
 
 const app = express();
 
 app.use(express.json());
 app.use(volleyball);
 app.use(express.static(path.join(__dirname, '..', 'public')));
+
+//passport
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || 'stocksecret',
+    resave: false,
+    saveUninitialized: false
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser((user, done) => done(null, user._id));
+
+passport.deserializeUser(async (userId, done) => {
+  try {
+    const user = await User.findById(userId);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+});
 
 app.use('/auth', require('./auth'));
 
