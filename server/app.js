@@ -5,8 +5,11 @@ const mongoose = require('mongoose');
 
 const app = express();
 
+app.use(express.json());
 app.use(volleyball);
 app.use(express.static(path.join(__dirname, '..', 'public')));
+
+app.use('/auth', require('./auth'));
 
 mongoose.connect(
   'mongodb://localhost/stocks',

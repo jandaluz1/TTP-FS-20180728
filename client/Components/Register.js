@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Register extends Component {
   constructor() {
@@ -9,7 +10,7 @@ class Register extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state);
+    axios.post('/auth/signup', this.state);
     this.setState({ name: '', email: '', password: '' });
   }
   handleChange(event) {
