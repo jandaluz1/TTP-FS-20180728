@@ -1,5 +1,7 @@
 import React from 'react';
+import Login from './Login';
+import Register from './Register';
 
-const App = () => <h1>React Connected!!</h1>;
+const App = () => <Login />;
 
 export default App;
