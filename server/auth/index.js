@@ -3,6 +3,7 @@ const router = require('express').Router();
 
 router.post('/signup', async (req, res, next) => {
   try {
+    console.log(req.body);
     const newUser = new User(req.body);
     await newUser.save();
     req.login(newUser, err => (err ? next(err) : res.json(newUser)));

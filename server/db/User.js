@@ -5,7 +5,9 @@ const SALT_WORK_FACTOR = 12;
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  passwordHash: { type: String, required: true }
+  passwordHash: { type: String, required: true },
+  balance: { type: Number, default: 5000.0 },
+  portfolio: { symbol: { type: String }, quanity: { type: Number } }
 });
 
 UserSchema.virtual('password').set(function(value) {

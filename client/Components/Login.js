@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { login } from '../store/user';
@@ -39,14 +40,16 @@ class Login extends Component {
         <br />
         <hr />
         <button type="submit">Login</button>
-        <button type="button">Create Account</button>
+        <Link to="/signup">
+          <button type="button">Create Account</button>
+        </Link>
       </form>
     );
   }
 }
 const mapDispatch = dispatch => ({
-  login: (email, password) => {
-    dispatch(login(email, password));
+  login: info => {
+    dispatch(login(info));
   }
 });
 export default connect(

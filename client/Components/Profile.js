@@ -1,5 +1,27 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const Profile = () => <h1>I am the profile Page</h1>;
+import { logout } from '../store/user';
 
-export default Profile;
+const Profile = props => (
+  <React.Fragment>
+    <h1>Hello, {props.name}</h1>
+    <p>number in test{props.stocks}</p>
+    <button onClick={props.logout}>Logout</button>
+  </React.Fragment>
+);
+
+const mapState = state => ({
+  name: state.user.name,
+  balance: state.user.balance,
+  stocks: state.user.portfolio
+});
+
+const mapDispatch = dispatch => ({
+  logout: () => dispatch(logout())
+});
+
+export default connect(
+  mapState,
+  mapDispatch
+)(Profile);

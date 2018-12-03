@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
+
+import { signUp } from '../store/user';
 
 class Register extends Component {
   constructor() {
@@ -10,7 +13,7 @@ class Register extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    axios.post('/auth/signup', this.state);
+    this.props.signUp(this.state);
     this.setState({ name: '', email: '', password: '' });
   }
   handleChange(event) {
@@ -51,4 +54,13 @@ class Register extends Component {
   }
 }
 
-export default Register;
+const mapDispatch = dispatch => ({
+  signUp: user => {
+    dispatch(signUp(user));
+  }
+});
+
+export default connect(
+  null,
+  mapDispatch
+)(Register);

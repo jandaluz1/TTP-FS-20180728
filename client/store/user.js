@@ -16,9 +16,19 @@ export const me = () => async dispatch => {
   }
 };
 
-export const login = (email, password) => async dispatch => {
+export const signUp = user => async dispatch => {
   try {
-    const res = await axios.post('/auth/login', email, password);
+    const res = await axios.post('/auth/signup', user);
+    dispatch(getUser(res.data));
+    history.push('/profile');
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const login = info => async dispatch => {
+  try {
+    const res = await axios.post('/auth/login', info);
     if (res.data) {
       dispatch(getUser(res.data));
       history.push('/profile');
