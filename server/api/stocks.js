@@ -1,22 +1,27 @@
 const router = require('express').Router();
-const axios = require('axios');
+const { User, Order } = require('../db');
 
-const stocks = axios.create({
-  baseURL: 'https://api.iextrading.com/1.0/stock',
-  headers: {
-    Accept: 'applicatoin/json'
-  },
-  timeout: 3000
-});
-
-router.get('/buy', async (req, res, next) => {
-  try {
-    console.log('REQUEST', req.body);
-    const stock = await stocks.get(`/${req.body.symbol}/batch?types=quote`);
-    res.json(stock.data);
-  } catch (err) {
-    next(err);
-  }
+router.post('/buy', async (req, res, next) => {
+  const order = req.body;
+  console.log('/BUY', req.body);
+  const user = await User.findOne({ _id: req.user._id });
+  !user.portfolio[order.symbol]
+    ? (user.portfolio[order.symbol] = Number(order.quantity))
+    : (user.portfolio[order.symbol] += Number(order.quantity));
+  user.balance -= order.price * Number(order.quantity);
+  user.markModified('portfolio');
+  const newOrder = new Order({
+    name: order.name,
+    symbol: order.symbol,
+    quantity: order.quantity,
+    price: order.quantity,
+    type: 'buy'
+  });
+  console.log('after markModified');
+  newOrder.user = user._id;
+  await user.save();
+  await newOrder.save();
+  res.status(201).send(user);
 });
 
 module.exports = router;

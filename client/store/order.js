@@ -25,7 +25,6 @@ export const fetchStock = (symbol, quantity) => async dispatch => {
     // stock ? dispatch(addStock(stock)) : dispatch();
     if (stock) {
       dispatch(addStock(stock));
-      history.push('/profile/buy/confirm');
     }
   } catch (err) {
     console.error(err);

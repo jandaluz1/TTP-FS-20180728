@@ -9,7 +9,7 @@ const Confirm = props => {
   const order = props.order;
   console.log('QUANTITY', typeof order.quantity);
   const onClick = async () => {
-    await axios.put('/api/user/buy', props.order);
+    await axios.post('/api/stocks/buy', props.order);
     props.clearOrder();
     history.push('/profile');
   };

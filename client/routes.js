@@ -16,7 +16,6 @@ class Routes extends Component {
         <Route path="/signup" component={Register} />
         {this.props.loggedIn && (
           <Switch>
-            <Route exact path="/profile/buy/confirm" component={Confirm} />
             <Route path="/profile/buy" component={Buy} />
             <Route path="/profile" component={Profile} />
           </Switch>
