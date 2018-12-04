@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Login, Register, Profile } from './Components';
+import { Login, Register, Profile, Buy, Confirm } from './Components';
 import { me } from './store/user';
 
 class Routes extends Component {
@@ -10,13 +10,14 @@ class Routes extends Component {
     this.props.loadData();
   }
   render() {
-    console.log(this.props.loggedIn);
     return (
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Register} />
         {this.props.loggedIn && (
           <Switch>
+            <Route exact path="/profile/buy/confirm" component={Confirm} />
+            <Route path="/profile/buy" component={Buy} />
             <Route path="/profile" component={Profile} />
           </Switch>
         )}
@@ -26,7 +27,7 @@ class Routes extends Component {
 }
 
 const mapState = state => ({
-  loggedIn: !!state.user._id
+  loggedIn: !!state.user.name
 });
 
 const mapDispatch = dispatch => ({

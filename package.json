@@ -25,6 +25,8 @@
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "history": "^4.7.2",
+    "iex-api": "0.0.3",
+    "isomorphic-fetch": "^2.2.1",
     "mongoose": "^5.3.14",
     "passport": "^0.4.0",
     "react": "^16.6.3",

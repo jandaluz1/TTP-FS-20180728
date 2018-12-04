@@ -6,8 +6,8 @@ const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   passwordHash: { type: String, required: true },
-  balance: { type: Number, default: 5000.0 },
-  portfolio: { symbol: { type: String }, quanity: { type: Number } }
+  balance: { type: Number, default: 5000 },
+  portfolio: {}
 });
 
 UserSchema.virtual('password').set(function(value) {
