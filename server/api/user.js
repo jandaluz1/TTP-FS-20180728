@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../db');
+const { User, Order } = require('../db');
 
 router.get('/portfolio', async (req, res, next) => {
   try {
@@ -18,6 +18,12 @@ router.get('/portfolio', async (req, res, next) => {
 router.put('/buy', async (req, res, next) => {
   const order = req.body;
   console.log(order);
+  const newOrder = new Order({
+    name: order.name,
+    symbol: order.symbol,
+    quantity: order.quantity,
+    price: order.quantity
+  });
   const user = await User.findOne({ _id: req.user._id });
   !user.portfolio[order.symbol]
     ? (user.portfolio[order.symbol] = Number(order.quantity))
@@ -25,8 +31,10 @@ router.put('/buy', async (req, res, next) => {
   user.balance -= order.price * Number(order.quantity);
   user.markModified('portfolio');
   console.log('after markModified');
-  user.save();
-  res.send(user);
+  newOrder.user = user._id;
+  await user.save();
+  await newOrder.save();
+  res.status(201).send(user);
 });
 
 module.exports = router;
