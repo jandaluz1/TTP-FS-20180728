@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { Login, Register, Profile, Buy, History } from './Components';
@@ -10,6 +10,8 @@ class Routes extends Component {
     this.props.loadData();
   }
   render() {
+    console.log('LOGGED IN ROUTES', this.props.loggedIn);
+    const loggedIn = this.props.loggedIn;
     return (
       <Switch>
         <Route path="/login" component={Login} />
@@ -21,6 +23,7 @@ class Routes extends Component {
             <Route path="/profile" component={Profile} />
           </Switch>
         )}
+        <Route exact path="/" render={() => <Redirect to="/login" />} />
       </Switch>
     );
   }

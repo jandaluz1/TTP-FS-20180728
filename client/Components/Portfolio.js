@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Text, Heading } from 'rebass';
 import { connect } from 'react-redux';
 import { fetchStocks } from '../store/stocks';
 class Portfolio extends Component {
@@ -10,14 +11,20 @@ class Portfolio extends Component {
     const quotes = this.props.quotes;
     return (
       <div>
-        <h3>Stocks you own</h3>
+        <Heading>Stocks you own</Heading>
         {console.log('QUOTES', quotes)}
         <table>
           <thead>
             <tr>
-              <td>Stock</td>
-              <td>Shares</td>
-              <td>Value</td>
+              <td>
+                <Text>Stock</Text>
+              </td>
+              <td>
+                <Text>Shares</Text>
+              </td>
+              <td>
+                <Text>Value</Text>
+              </td>
             </tr>
           </thead>
           <tbody>
@@ -25,13 +32,43 @@ class Portfolio extends Component {
               Object.keys(quotes).map((stock, idx) => (
                 <tr key={idx}>
                   <td>
-                    {quotes[stock].quote.companyName}({stock})
+                    <Text>
+                      {quotes[stock].quote.companyName}({stock})
+                    </Text>
                   </td>
-                  <td>{owned[stock]}</td>
                   <td>
-                    $
-                    {(quotes[stock].quote.latestPrice * owned[stock]).toFixed(
-                      2
+                    <Text>{owned[stock]}</Text>
+                  </td>
+                  <td>
+                    {quotes[stock].quote.latestPrice -
+                      quotes[stock].quote.open >
+                      0 && (
+                      <Text color="lightgreen">
+                        $
+                        {(
+                          quotes[stock].quote.latestPrice * owned[stock]
+                        ).toFixed(2)}
+                      </Text>
+                    )}
+                    {quotes[stock].quote.latestPrice -
+                      quotes[stock].quote.open <
+                      0 && (
+                      <Text color="red">
+                        $
+                        {(
+                          quotes[stock].quote.latestPrice * owned[stock]
+                        ).toFixed(2)}
+                      </Text>
+                    )}
+                    {quotes[stock].quote.latestPrice -
+                      quotes[stock].quote.open ===
+                      0 && (
+                      <Text color="gray">
+                        $
+                        {(
+                          quotes[stock].quote.latestPrice * owned[stock]
+                        ).toFixed(2)}
+                      </Text>
                     )}
                   </td>
                 </tr>

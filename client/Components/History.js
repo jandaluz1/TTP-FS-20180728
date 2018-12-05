@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Text, Heading, Button } from 'rebass';
 import axios from 'axios';
 
 class History extends Component {
@@ -17,15 +18,25 @@ class History extends Component {
     const orders = this.state.orders;
     return (
       <div>
-        <h1>Transaction History</h1>
+        <Heading>Transaction History</Heading>
         <table>
           <thead>
             <tr>
-              <td>Stock</td>
-              <td>Type</td>
-              <td>Quantity</td>
-              <td>Price per Share</td>
-              <td>TOTAL</td>
+              <td>
+                <Text>Stock</Text>
+              </td>
+              <td>
+                <Text>Type</Text>
+              </td>
+              <td>
+                <Text>Quantity</Text>
+              </td>
+              <td>
+                <Text>Price per Share</Text>
+              </td>
+              <td>
+                <Text>TOTAL</Text>
+              </td>
             </tr>
           </thead>
           <tbody>
@@ -33,21 +44,41 @@ class History extends Component {
               orders.map(order => (
                 <tr key={order._id}>
                   <td>
-                    {order.name}({order.symbol})
+                    <Text>
+                      {order.name}({order.symbol})
+                    </Text>
                   </td>
-                  <td>{order.type}</td>
-                  <td>{order.quantity}</td>
-                  <td>{order.price}</td>
-                  <td>{(order.price * order.quantity).toFixed(2)}</td>
+                  <td>
+                    <Text>{order.type}</Text>
+                  </td>
+                  <td>
+                    <Text>{order.quantity}</Text>
+                  </td>
+                  <td>
+                    <Text>{order.price}</Text>
+                  </td>
+                  <td>
+                    <Text>{(order.price * order.quantity).toFixed(2)}</Text>
+                  </td>
                 </tr>
               ))
             ) : (
-              <tr>You have not ordered anything yet</tr>
+              <tr>
+                <Text>You have not ordered anything yet</Text>
+              </tr>
             )}
           </tbody>
         </table>
         <Link to="/profile">
-          <button type="button">Back to profile</button>
+          <Button
+            borderColor="black"
+            border="1"
+            bg="gray"
+            color="black"
+            type="button"
+          >
+            Back to profile
+          </Button>
         </Link>
       </div>
     );

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Heading, Button } from 'rebass';
 
 import { logout, me } from '../store/user';
-import { fetchStocks } from '../store/stocks';
 
 import Portfolio from './Portfolio';
 
@@ -15,7 +15,7 @@ class Profile extends Component {
     console.log(this.props.stocks);
     return (
       <React.Fragment>
-        <h1>Hello {this.props.name}</h1>
+        <Heading>Welcome {this.props.name}</Heading>
         {this.props.stocks ? (
           <Portfolio />
         ) : (
@@ -23,16 +23,23 @@ class Profile extends Component {
         )}
         <h3>Balance: ${this.props.balance.toFixed(2)}</h3>
         <Link to="/profile/buy">
-          <button type="button">Buy</button>
-        </Link>
-        <br />
+          <Button bg="green" type="button">
+            Buy
+          </Button>
+        </Link>{' '}
         <Link to="/profile/history">
-          <button type="button">Orders</button>
-        </Link>
-        <br />
-        <button type="button" onClick={this.props.logout}>
+          <Button type="button">Orders</Button>
+        </Link>{' '}
+        <Button
+          bg="gray"
+          color="black"
+          borderColor="black"
+          border="1"
+          type="button"
+          onClick={this.props.logout}
+        >
           Logout
-        </button>
+        </Button>
       </React.Fragment>
     );
   }

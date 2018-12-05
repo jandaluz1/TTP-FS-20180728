@@ -2,7 +2,18 @@ const router = require('express').Router();
 const axios = require('axios');
 const { User, Order } = require('../db');
 
-router.post('/buy', async (req, res, next) => {
+const isLoggedIn = function(req, res, next) {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    const error = new Error();
+    error.status = 401;
+    error.message = 'Unauthorized Access';
+    next(error);
+  }
+};
+
+router.post('/buy', isLoggedIn, async (req, res, next) => {
   const order = req.body;
   console.log('/BUY', req.body);
   const user = await User.findOne({ _id: req.user._id });
@@ -26,7 +37,7 @@ router.post('/buy', async (req, res, next) => {
   res.status(201).send(user);
 });
 
-router.get('/quote', async (req, res, next) => {
+router.get('/quote', isLoggedIn, async (req, res, next) => {
   const symbols = Object.keys(req.user.portfolio);
   const stocks = await axios.get(
     `https://ws-api.iextrading.com/1.0/stock/market/batch?symbols=${symbols.join(

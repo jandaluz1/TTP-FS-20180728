@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import history from '../history';
 import Modal from 'react-modal';
+import { Heading, Button, Card, Text } from 'rebass';
+
 import Confirm from '../Components/Confirm';
 
 import { fetchStock, clearOrder } from '../store/order';
@@ -39,43 +41,75 @@ class Buy extends Component {
   }
   render() {
     return (
-      <React.Fragment>
+      <Card
+        m={4}
+        mx="auto"
+        px="auto"
+        width={0.3}
+        borderRadius={8}
+        boxShadow="0 2px 16px rgba(0,0,0,0.25)"
+      >
+        <Heading color="lightgreen" textAlign="center">
+          Purchase Stock
+        </Heading>
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="symbol">Stock Symbol</label>
+          <Text>
+            Stock Symbol
+            {!this.state.symbol && <span className="warning">*Required</span>}
+          </Text>
           <input
             type="text"
             name="symbol"
             value={this.state.symbol}
             onChange={this.handleChange}
           />
-          <label htmlFor="quantity">Quantity</label>
+          <Text>
+            Quantity
+            {!this.state.quantity && <span className="warning">*Required</span>}
+          </Text>
           <input
             type="text"
             name="quantity"
             value={this.state.quantity}
             onChange={this.handleChange}
           />
-          <button
+          <hr />
+          <Button
             type="submit"
             disabled={
               !this.state.symbol ||
               !this.state.quantity ||
               Number(this.state.quantity) % 1 !== 0
             }
+            bg="green"
           >
             Buy
-          </button>
-          <button type="button" onClick={this.onCancel}>
+          </Button>{' '}
+          <Button
+            bg="gray"
+            border="1"
+            borderColor="black"
+            color="black"
+            type="button"
+            onClick={this.onCancel}
+          >
             Cancel
-          </button>
+          </Button>
         </form>
         <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal}>
           <Confirm />
-          <button type="button" onClick={this.onCancel}>
+          <Button
+            bg="gray"
+            border="1"
+            borderColor="black"
+            color="black"
+            type="button"
+            onClick={this.onCancel}
+          >
             Cancel
-          </button>
+          </Button>
         </Modal>
-      </React.Fragment>
+      </Card>
     );
   }
 }

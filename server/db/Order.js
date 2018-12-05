@@ -6,6 +6,7 @@ const OrderSchema = new mongoose.Schema({
   quantity: { type: Number, required: true, min: [1] },
   price: { type: Number, required: true },
   type: { type: String, enum: ['buy', 'sell'] },
+  createdAt: { type: Date, default: Date.now },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 
