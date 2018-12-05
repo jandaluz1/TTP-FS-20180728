@@ -6,10 +6,20 @@ router.get('/portfolio', async (req, res, next) => {
     const user = await User.findOne({ _id: req.user._id });
     if (!user.portfolio) {
       user.portfolio = {};
-      user.save();
+      await user.markModified('portfolio');
+      await user.save();
     }
     console.log(user.portfolio);
     res.json(user.portfolio);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/orders', async (req, res, next) => {
+  try {
+    const orders = await Order.find({ user: req.user._id });
+    res.send(orders);
   } catch (err) {
     next(err);
   }

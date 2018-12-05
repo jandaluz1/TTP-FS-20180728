@@ -7,6 +7,8 @@ import { clearOrder } from '../store/order';
 
 const Confirm = props => {
   const order = props.order;
+  const balance = props.balance;
+  const newBalance = balance - order.price * Number(order.quantity);
   console.log('QUANTITY', typeof order.quantity);
   const onClick = async () => {
     await axios.post('/api/stocks/buy', props.order);
@@ -19,9 +21,10 @@ const Confirm = props => {
       <h3>
         {order.symbol}: {order.name} @ {order.price} per share
       </h3>
-      <h2>Total: {order.price * Number(order.quantity)}</h2>
+      <h3>Total: ${order.price * Number(order.quantity)}</h3>
       <br />
-      <button type="button" onClick={onClick}>
+      <h2>New Balance: ${newBalance}</h2>
+      <button type="button" disabled={newBalance < 0} onClick={onClick}>
         Confirm
       </button>
     </React.Fragment>
@@ -29,7 +32,8 @@ const Confirm = props => {
 };
 
 const mapState = state => ({
-  order: state.order
+  order: state.order,
+  balance: state.user.balance
 });
 
 const mapDispatch = dispatch => ({

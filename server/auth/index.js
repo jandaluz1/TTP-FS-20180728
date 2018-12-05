@@ -5,6 +5,8 @@ router.post('/signup', async (req, res, next) => {
   try {
     console.log(req.body);
     const newUser = new User(req.body);
+    newUser.portfolio = {};
+    await newUser.markModified('portfolio');
     await newUser.save();
     req.login(newUser, err => (err ? next(err) : res.json(newUser)));
   } catch (err) {

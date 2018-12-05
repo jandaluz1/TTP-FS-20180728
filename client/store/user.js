@@ -1,6 +1,9 @@
 import axios from 'axios';
 import history from '../history';
 
+import { clear } from './stocks';
+import { clearOrder } from './order';
+
 const GET_USER = 'GET_USER';
 const REMOVE_USER = 'REMOVE_USER';
 
@@ -14,7 +17,8 @@ export const me = () => async dispatch => {
     const user = {
       name: res.data.name,
       email: res.data.email,
-      balance: res.data.balance
+      balance: res.data.balance,
+      stocks: res.data.portfolio
     };
     dispatch(getUser(user || defaultUser));
   } catch (err) {
@@ -39,7 +43,8 @@ export const login = info => async dispatch => {
       const user = {
         name: res.data.name,
         email: res.data.email,
-        balance: res.data.balance
+        balance: res.data.balance,
+        stocks: res.data.portfolio
       };
       dispatch(getUser(user));
       history.push('/profile');
@@ -53,6 +58,8 @@ export const logout = () => async dispatch => {
   try {
     await axios.post('/auth/logout');
     dispatch(removeUser());
+    dispatch(clear());
+    dispatch(clearOrder());
     history.push('/login');
   } catch (err) {
     console.error(err);

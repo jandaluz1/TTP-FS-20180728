@@ -55,7 +55,16 @@ class Buy extends Component {
             value={this.state.quantity}
             onChange={this.handleChange}
           />
-          <button type="submit">Buy</button>
+          <button
+            type="submit"
+            disabled={
+              !this.state.symbol ||
+              !this.state.quantity ||
+              Number(this.state.quantity) % 1 !== 0
+            }
+          >
+            Buy
+          </button>
           <button type="button" onClick={this.onCancel}>
             Cancel
           </button>

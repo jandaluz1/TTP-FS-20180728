@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Login, Register, Profile, Buy, Confirm } from './Components';
+import { Login, Register, Profile, Buy, History } from './Components';
 import { me } from './store/user';
 
 class Routes extends Component {
@@ -17,6 +17,7 @@ class Routes extends Component {
         {this.props.loggedIn && (
           <Switch>
             <Route path="/profile/buy" component={Buy} />
+            <Route path="/profile/history" component={History} />
             <Route path="/profile" component={Profile} />
           </Switch>
         )}
