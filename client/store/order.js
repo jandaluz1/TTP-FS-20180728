@@ -13,7 +13,6 @@ export const clearOrder = () => ({ type: CLEAR_ORDER });
 
 export const fetchStock = (symbol, quantity) => async dispatch => {
   try {
-    console.log('FETCHSTOCK', symbol);
     const res = await iex.stockQuote(symbol);
     const stock = {
       symbol,
@@ -21,8 +20,6 @@ export const fetchStock = (symbol, quantity) => async dispatch => {
       price: res.latestPrice,
       quantity
     };
-    console.log(stock);
-    // stock ? dispatch(addStock(stock)) : dispatch();
     if (stock) {
       dispatch(addStock(stock));
     }

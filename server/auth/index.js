@@ -3,7 +3,6 @@ const router = require('express').Router();
 
 router.post('/signup', async (req, res, next) => {
   try {
-    console.log(req.body);
     const newUser = new User(req.body);
     newUser.portfolio = {};
     await newUser.markModified('portfolio');

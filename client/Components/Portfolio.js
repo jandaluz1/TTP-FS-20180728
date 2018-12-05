@@ -12,7 +12,6 @@ class Portfolio extends Component {
     return (
       <div>
         <Heading>Stocks you own</Heading>
-        {console.log('QUOTES', quotes)}
         <table>
           <thead>
             <tr>

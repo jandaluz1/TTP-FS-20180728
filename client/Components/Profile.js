@@ -12,7 +12,6 @@ class Profile extends Component {
     this.props.loadUser();
   }
   render() {
-    console.log(this.props.stocks);
     return (
       <React.Fragment>
         <Heading>Welcome {this.props.name}</Heading>

@@ -69,9 +69,6 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error'));
 
 db.once('open', () => {
-  console.log('DB Connected!');
   const PORT = 8080;
-  app.listen(PORT, () => {
-    console.log(`Listening on ${PORT}...`);
-  });
+  app.listen(PORT, () => {});
 });

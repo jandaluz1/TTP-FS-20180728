@@ -15,7 +15,6 @@ const isLoggedIn = function(req, res, next) {
 
 router.post('/buy', isLoggedIn, async (req, res, next) => {
   const order = req.body;
-  console.log('/BUY', req.body);
   const user = await User.findOne({ _id: req.user._id });
   if (!user.portfolio) user.portfolio = {};
   !user.portfolio[order.symbol]
@@ -30,7 +29,6 @@ router.post('/buy', isLoggedIn, async (req, res, next) => {
     price: order.price,
     type: 'buy'
   });
-  console.log('after markModified');
   newOrder.user = user._id;
   await user.save();
   await newOrder.save();

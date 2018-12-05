@@ -10,7 +10,6 @@ const Confirm = props => {
   const order = props.order;
   const balance = props.balance;
   const newBalance = balance - order.price * Number(order.quantity);
-  console.log('QUANTITY', typeof order.quantity);
   const onClick = async () => {
     await axios.post('/api/stocks/buy', props.order);
     props.clearOrder();

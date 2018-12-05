@@ -13,7 +13,6 @@ const removeUser = () => ({ type: REMOVE_USER });
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me');
-    console.log('ME');
     const user = {
       name: res.data.name,
       email: res.data.email,

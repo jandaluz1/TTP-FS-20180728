@@ -20,7 +20,6 @@ router.get('/portfolio', isLoggedIn, async (req, res, next) => {
       await user.markModified('portfolio');
       await user.save();
     }
-    console.log(user.portfolio);
     res.json(user.portfolio);
   } catch (err) {
     next(err);

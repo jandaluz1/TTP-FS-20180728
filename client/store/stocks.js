@@ -8,7 +8,6 @@ const getStocks = portfolio => ({ type: GET_STOCKS, portfolio });
 export const fetchStocks = () => async dispatch => {
   try {
     const res = await axios.get('/api/stocks/quote');
-    console.log(res.data);
     dispatch(getStocks(res.data));
   } catch (err) {
     console.error(err);

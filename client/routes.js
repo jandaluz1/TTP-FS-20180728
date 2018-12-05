@@ -10,8 +10,6 @@ class Routes extends Component {
     this.props.loadData();
   }
   render() {
-    console.log('LOGGED IN ROUTES', this.props.loggedIn);
-    const loggedIn = this.props.loggedIn;
     return (
       <Switch>
         <Route path="/login" component={Login} />
